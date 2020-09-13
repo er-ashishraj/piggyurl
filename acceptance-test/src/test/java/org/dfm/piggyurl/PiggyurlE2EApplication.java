@@ -2,8 +2,11 @@ package org.dfm.piggyurl;
 
 import org.dfm.piggyurl.domain.PiggyurlDomain;
 import org.dfm.piggyurl.domain.port.ObtainPiggyurl;
+import org.dfm.piggyurl.domain.port.ObtainUser;
 import org.dfm.piggyurl.domain.port.RequestPiggyurl;
+import org.dfm.piggyurl.domain.port.RequestUser;
 import org.dfm.piggyurl.repository.config.JpaAdapterConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -22,8 +25,15 @@ public class PiggyurlE2EApplication {
     static class PiggyurlConfig {
 
         @Bean
+        @Qualifier("requestPiggyurl")
         public RequestPiggyurl getRequestPiggyurl(final ObtainPiggyurl obtainPiggyurl) {
             return new PiggyurlDomain(obtainPiggyurl);
+        }
+
+        @Bean
+        @Qualifier("requestUser")
+        public RequestUser getRequestUser(final ObtainUser obtainUser) {
+            return new PiggyurlDomain(obtainUser);
         }
     }
 }
