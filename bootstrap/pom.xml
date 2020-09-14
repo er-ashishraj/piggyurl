@@ -45,6 +45,10 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                        <configuration>
+                            <mainClass>org.dfm.piggyurl.boot.PiggyurlApplication</mainClass>
+                            <outputDirectory>${project.parent.basedir}/docker</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
