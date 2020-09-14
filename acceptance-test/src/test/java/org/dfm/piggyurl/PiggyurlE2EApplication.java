@@ -1,8 +1,10 @@
 package org.dfm.piggyurl;
 
 import org.dfm.piggyurl.domain.PiggyurlDomain;
+import org.dfm.piggyurl.domain.port.ObtainCard;
 import org.dfm.piggyurl.domain.port.ObtainPiggyurl;
 import org.dfm.piggyurl.domain.port.ObtainUser;
+import org.dfm.piggyurl.domain.port.RequestCard;
 import org.dfm.piggyurl.domain.port.RequestPiggyurl;
 import org.dfm.piggyurl.domain.port.RequestUser;
 import org.dfm.piggyurl.repository.config.JpaAdapterConfig;
@@ -34,6 +36,12 @@ public class PiggyurlE2EApplication {
         @Qualifier("requestUser")
         public RequestUser getRequestUser(final ObtainUser obtainUser) {
             return new PiggyurlDomain(obtainUser);
+        }
+
+        @Bean
+        @Qualifier("requestCard")
+        public RequestCard getRequestCard(final ObtainUser obtainUser, final ObtainCard obtainCard) {
+            return new PiggyurlDomain(obtainUser, obtainCard);
         }
     }
 }

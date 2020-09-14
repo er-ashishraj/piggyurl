@@ -20,11 +20,25 @@ public interface ObtainUser {
         return Optional.empty();
     }
 
+    default Optional<Group> getGroupByIdAndType(final Long groupId, final UserGroupType groupType) {
+        return Optional.empty();
+    }
+
+    default Optional<Group> getGroupById(final Long groupId) {
+        return Optional.empty();
+    }
+
     default Optional<User> createUser(final User userToBeCreated) {
         return Optional.empty();
     }
 
     default Optional<User> getUserByUserName(final String userName) {
+        return Optional.empty();
+    }
+    default Optional<User> getUserByTribeId(final Long tribeId) {
+        return Optional.empty();
+    }
+    default Optional<User> getUserByFeatureTeamId(final Long tribeId) {
         return Optional.empty();
     }
 }

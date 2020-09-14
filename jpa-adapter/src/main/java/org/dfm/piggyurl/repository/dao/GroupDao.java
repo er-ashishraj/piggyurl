@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface GroupDao extends JpaRepository<GroupEntity, Long> {
 
   Optional<GroupEntity> findByNameAndType(final String groupName, final String groupType);
+  Optional<GroupEntity> findByIdAndType(final Long groupId, final String groupType);
+  Optional<GroupEntity> findById(final Long groupId);
 }
