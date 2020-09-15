@@ -14,3 +14,10 @@ after_success:
 cache:
   directories:
     - $HOME/.m2
+deploy:
+  provider: heroku
+  api_key:
+    secure: 68ffe987-7718-42ce-9ebe-dd2fced642c7
+  app: piggyurl
+  on:
+    repo: er-ashishraj/piggyurl
