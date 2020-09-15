@@ -147,7 +147,7 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>3.0.4</version>
                 <configuration>
-                    <appName>bootstrap</appName>
+                    <appName>piggyurl</appName>
                     <processTypes>
                         <web>java $JAVA_OPTS -jar -Dserver.port=8080 target/bootstrap.jar</web>
                     </processTypes>
