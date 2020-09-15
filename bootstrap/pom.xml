@@ -1,159 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>piggyurl</artifactId>
-    <groupId>org.dfm</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>bootstrap</artifactId>
-  <dependencies>
-    <!-- left adapter -->
-    <dependency>
-      <groupId>org.dfm</groupId>
-      <artifactId>rest-adapter</artifactId>
-    </dependency>
-    <!-- domain -->
-    <dependency>
-      <groupId>org.dfm</groupId>
-      <artifactId>domain</artifactId>
-    </dependency>
-    <!-- right adapter -->
-    <dependency>
-      <groupId>org.dfm</groupId>
-      <artifactId>jpa-adapter</artifactId>
-    </dependency>
-    <!-- Frameworks & Libraries -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <!--executions>
-            <execution>
-                <goals>
-                    <goal>repackage</goal>
-                </goals>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>piggyurl</artifactId>
+        <groupId>org.dfm</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>bootstrap</artifactId>
+    <dependencies>
+        <!-- left adapter -->
+        <dependency>
+            <groupId>org.dfm</groupId>
+            <artifactId>rest-adapter</artifactId>
+        </dependency>
+        <!-- domain -->
+        <dependency>
+            <groupId>org.dfm</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+        <!-- right adapter -->
+        <dependency>
+            <groupId>org.dfm</groupId>
+            <artifactId>jpa-adapter</artifactId>
+        </dependency>
+        <!-- Frameworks & Libraries -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                            <mainClass>org.dfm.piggyurl.boot.PiggyurlApplication</mainClass>
+                            <outputDirectory>${project.parent.basedir}/target</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- spotify's dockerfile-maven-plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.9</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <mainClass>org.dfm.piggyurl.boot.PiggyurlApplication</mainClass>
-                    <outputDirectory>${project.parent.basedir}/target</outputDirectory>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <serverId>index.docker.io</serverId>
+                    <registryUrl>https://index.docker.io:443/v1/</registryUrl>
                 </configuration>
-            </execution>
-        </executions-->
-      </plugin>
+            </plugin>
 
-      <!-- spotify's dockerfile-maven-plugin -->
-      <plugin>
-        <groupId>com.spotify</groupId>
-        <artifactId>dockerfile-maven-plugin</artifactId>
-        <version>1.4.9</version>
-        <executions>
-          <execution>
-            <id>default</id>
-            <phase>install</phase>
-            <goals>
-              <goal>build</goal>
-              <goal>push</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <repository>${docker.image.prefix}/${project.artifactId}</repository>
-          <serverId>index.docker.io</serverId>
-          <registryUrl>https://index.docker.io:443/v1/</registryUrl>
-        </configuration>
-      </plugin>
+            <!-- maven-dependency-plugin useful for creating docker image -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-      <!-- maven-dependency-plugin useful for creating docker image -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>${project.groupId}</groupId>
-                  <artifactId>${project.artifactId}</artifactId>
-                  <version>${project.version}</version>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- jacoco-maven-plugin useful for Codecov -->
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.5</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- Generating github  gh pages & maven project documents  -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>com.github.github</groupId>
-        <artifactId>site-maven-plugin</artifactId>
-        <version>0.12</version>
-        <configuration>
-          <message>Building site for ${project.name} ${project.version}</message>
-          <server>github</server>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>site</goal>
-            </goals>
-            <phase>site</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- Useful for Heroku Deployment -->
-      <plugin>
-        <groupId>com.heroku.sdk</groupId>
-        <artifactId>heroku-maven-plugin</artifactId>
-        <version>3.0.4</version>
-        <configuration>
-          <appName>piggyurl</appName>
-          <jdkVersion>${java.version}</jdkVersion>
-          <processTypes>
-            <web>java $JAVA_OPTS -jar -Dserver.port=8080 target/bootstrap.jar</web>
-          </processTypes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+            <!-- jacoco-maven-plugin useful for Codecov -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Generating github  gh pages & maven project documents  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <message>Building site for ${project.name} ${project.version}</message>
+                    <server>github</server>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Useful for Heroku Deployment -->
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <configuration>
+                    <appName>piggyurl</appName>
+                    <jdkVersion>${java.version}</jdkVersion>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -jar -Dserver.port=8080 target/bootstrap.jar</web>
+                    </processTypes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
