@@ -2,7 +2,7 @@
 FROM openjdk:11
 
 # Add Maintainer Info
-LABEL maintainer="er.ashishraj@1804@gmail.com"
+LABEL maintainer="er.ashishraj2010@gmail.com"
 
 # Add a volume pointing to /tmp
 VOLUME /tmp
