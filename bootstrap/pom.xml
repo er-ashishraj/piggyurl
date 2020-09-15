@@ -138,7 +138,7 @@
                 <configuration>
                     <appName>bootstrap</appName>
                     <processTypes>
-                        <web>java $JAVA_OPTS -jar -Dserver.port=$PORT ${full-artifact-name}</web>
+                        <web>java $JAVA_OPTS -jar -Dserver.port=8080 target/bootstrap.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
