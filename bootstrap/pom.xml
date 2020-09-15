@@ -151,7 +151,7 @@
                     <appName>piggyurl</appName>
                     <jdkVersion>${java.version}</jdkVersion>
                     <processTypes>
-                        <web>java $JAVA_OPTS -jar -Dserver.port=8080 target/bootstrap.jar</web>
+                        <web>java $JAVA_OPTS -jar -Dserver.port=$PORT target/bootstrap.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
