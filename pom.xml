@@ -45,7 +45,7 @@
         <github.global.server>github</github.global.server>
         <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
         <!-- Useful for Heroku Deployment -->
-        <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+        <full-artifact-name>bootstrap/target/bootstrap.jar</full-artifact-name>
     </properties>
     <modules>
         <module>domain</module>
