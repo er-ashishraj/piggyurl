@@ -1,4 +1,4 @@
-# Details for Third Party application integration for Continuous Integration/Continuous(CI/CD) Delivery for 'piggyurl' project.
+## Integration details for Continuous Integration/Continuous(CI/CD) Delivery.
 
  - Travis CI build detail: [![Build Status](https://travis-ci.com/er-ashishraj/piggyurl.svg?branch=master)](https://travis-ci.com/er-ashishraj/piggyurl)
  - Docker build detail: ![docker build](https://img.shields.io/docker/cloud/build/erashishraj/piggyurl)
