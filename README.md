@@ -3,6 +3,7 @@
  - Travis CI build detail: [![Build Status](https://travis-ci.com/er-ashishraj/piggyurl.svg?branch=master)](https://travis-ci.com/er-ashishraj/piggyurl)
  - Docker build detail: ![docker build](https://img.shields.io/docker/cloud/build/erashishraj/piggyurl)
  - Code coverage detail: [![codecov](https://codecov.io/gh/er-ashishraj/piggyurl/branch/master/graph/badge.svg)](https://codecov.io/gh/er-ashishraj/piggyurl)
+ - Sonar code quality detail: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=er-ashishraj_piggyurl&metric=alert_status)](https://sonarcloud.io/dashboard?id=er-ashishraj_piggyurl)
 
 
 
