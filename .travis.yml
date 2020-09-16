@@ -35,7 +35,6 @@ after_success:
   #Generating Site
   - travis_wait mvn site
   - cd ..
-  - mvn clean install
   - mvn coveralls:report
   - bash <(curl -s https://codecov.io/bash)
   # SonarCloud
