@@ -1,6 +1,6 @@
 # Details for Third Party application integration for Continuous Integration/Continuous(CI/CD) Delivery for 'piggyurl' project.
 
-[![Build Status](https://travis-ci.com/er-ashishraj/piggyurl.svg?branch=master)](https://travis-ci.com/er-ashishraj/piggyurl)
+ - Travis CI build detail: [![Build Status](https://travis-ci.com/er-ashishraj/piggyurl.svg?branch=master)](https://travis-ci.com/er-ashishraj/piggyurl)
 
 
 <!-- 
