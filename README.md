@@ -4,6 +4,7 @@
  - Docker build detail: ![docker build](https://img.shields.io/docker/cloud/build/erashishraj/piggyurl)
  - Code coverage detail: [![codecov](https://codecov.io/gh/er-ashishraj/piggyurl/branch/master/graph/badge.svg)](https://codecov.io/gh/er-ashishraj/piggyurl)
  - Sonar code quality detail: [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=er-ashishraj_piggyurl&metric=alert_status)](https://sonarcloud.io/dashboard?id=er-ashishraj_piggyurl)
+ - License : [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
