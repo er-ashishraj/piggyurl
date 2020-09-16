@@ -45,10 +45,10 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-                        <configuration>
+                        <!--configuration>
                             <mainClass>org.dfm.piggyurl.boot.PiggyurlApplication</mainClass>
                             <outputDirectory>${project.basedir}/target</outputDirectory>
-                        </configuration>
+                        </configuration-->
                     </execution>
                 </executions>
             </plugin>
