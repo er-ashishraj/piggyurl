@@ -46,7 +46,6 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <classifier>exec</classifier>
                             <mainClass>org.dfm.piggyurl.boot.PiggyurlApplication</mainClass>
                             <outputDirectory>${project.basedir}/target</outputDirectory>
                         </configuration>
