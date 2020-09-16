@@ -2,6 +2,10 @@
 
  - Travis CI build detail: [![Build Status](https://travis-ci.com/er-ashishraj/piggyurl.svg?branch=master)](https://travis-ci.com/er-ashishraj/piggyurl)
  - Docker build detail: ![docker build](https://img.shields.io/docker/cloud/build/erashishraj/piggyurl)
+ - Code coverage detail: [![codecov](https://codecov.io/gh/er-ashishraj/piggyurl/branch/master/graph/badge.svg)](https://codecov.io/gh/er-ashishraj/piggyurl)
+
+
+
 
 <!-- 
 this project was generated with https://github.com/devs-from-matrix/basic-template-repository. 
