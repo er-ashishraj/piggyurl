@@ -26,7 +26,7 @@ script:
   #- mvn deploy
   #- mvn clean install
   #deploying the app on Docker & Heroku
-  - cd bootstrap
+  #- cd bootstrap
   - HEROKU_API_KEY="$HEROKU_API_KEY" mvn heroku:deploy -Dheroku.appName=piggyurl
   #mvn clean verify -Pheroku
 after_success:
