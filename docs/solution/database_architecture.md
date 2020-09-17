@@ -1,6 +1,6 @@
 # Project - 'PIGGYURL' - Database Design with schemas
 
-[Schema file](schema-hsqldb.sql)
+[Schema file](docs/solution/schema-hsqldb.sql)
 
-![Image](../images/DB_Design.JPG)
+![Image](../images/DB_Design.jpg)
 
