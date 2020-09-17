@@ -16,12 +16,14 @@ License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
 
 ## Building the application
 Use following command to build the application
+
 ---
 mvn clean install
 ---
 
 ## Running the application
 Use following command to run the application:
+
 ---
 cd bootstrap
 mvn spring-boot:run
@@ -29,6 +31,7 @@ mvn spring-boot:run
 
 ## Running the tests
 Use following command to run test cases:
+
 ---
 mvn clean test
 ---
