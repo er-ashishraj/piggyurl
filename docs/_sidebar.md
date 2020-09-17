@@ -1,3 +1,5 @@
 - [Overview](README.md)
-
-    - [Contribution guidelines](README#contribution-guidelines)
+    - [Problem Statement](https://engineering-stream-hackathon.github.io/challenge/#/?id=bookmark-and-url-shortening)
+    - [Solution Approach](solution/solution_approach.md)
+    - [Technology Stack Used](solution/technology_stack.md)
+    - [Database Design](solution/database_architecture.md)
