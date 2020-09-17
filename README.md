@@ -14,6 +14,25 @@ License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
 
 [Technology Stack Used](docs/solution/technology_stack.md)
 
+## Building the application
+Use following command to build the application
+---
+mvn clean install
+---
+
+## Running the application
+Use following command to run the application:
+---
+cd bootstrap
+mvn spring-boot:run
+---
+
+## Running the tests
+Use following command to run test cases:
+---
+mvn clean test
+---
+
 ## Contribution guidelines
 
 We are really glad you're reading this, because we need volunteer developers to help this project come to fruition.
