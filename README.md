@@ -8,20 +8,11 @@ Code coverage | [![codecov](https://codecov.io/gh/er-ashishraj/piggyurl/branch/m
 Sonar code quality | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=er-ashishraj_piggyurl&metric=alert_status)](https://sonarcloud.io/dashboard?id=er-ashishraj_piggyurl)
 License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Swagger Link : https://piggyurl.herokuapp.com/swagger-ui.html
 
-<!-- 
-this project is at: https://github.com/er-ashishraj/piggyurl. 
--->
+## Complete Documentation : https://er-ashishraj.github.io/piggyurl/#/)
 
-## [Documentation](https://github.com/er-ashishraj/piggyurl/)
-
-## How to build ?
-
-<!-- mention the steps for building this project -->
-
-## How to start ?
-
-<!-- mention the steps for starting or serving this project -->
+[Technology Stack Used](docs/solution/technology_stack.md)
 
 ## Contribution guidelines
 

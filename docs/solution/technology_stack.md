@@ -12,7 +12,7 @@
 ------------ | -------------
 
 ## CI/CD Stack
-![Image](../images/Techstack.JPG) | ![Image](../images/CiCd_Flow.JPG)
+![Image](../images/TechStack.JPG) | ![Image](../images/CiCd_Flow.JPG)
 ------------ | -------------
  | ![Image](../images/Travis_DockerHub.JPG)
  
