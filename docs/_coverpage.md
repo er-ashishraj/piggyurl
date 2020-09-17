@@ -1,6 +1,5 @@
-# Template repository
+# PIGGYURL
 
-> A magical template generator.
-<!--  todo: change the repo name -->
-[GitHub](https://github.com/devs-from-matrix/basic-template-repository)
+> Documentation for the project - PIGGYURL.
+[GitHub](https://github.com/er-ashishraj/piggyurl)
 [Get Started](README#overview)
