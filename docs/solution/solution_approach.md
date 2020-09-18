@@ -24,4 +24,6 @@
    * Shorten URL will change based on above selection.
    * Cards will have default expiration date (if not given as an input) which is configurable.
    
-      
+## Hexagonal Architecture:
+ - This is the main architecture use for the development which implements the process of PORTS and ADAPTERS with Domain Driven Development(DDD). It helps us to maintain the system easily as it promotes loose coupling.
+    This architecture also helps us to easily adapt any new changes in future without affecting current process.      
