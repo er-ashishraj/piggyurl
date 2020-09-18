@@ -9,6 +9,7 @@ import org.dfm.piggyurl.domain.common.ShortUrlLevel;
 import org.dfm.piggyurl.domain.common.UserGroupType;
 import org.dfm.piggyurl.domain.common.UserRightLevel;
 import org.dfm.piggyurl.domain.exception.CommonException;
+import org.dfm.piggyurl.domain.exception.UserNotAuthorizedException;
 import org.dfm.piggyurl.domain.model.Group;
 import org.dfm.piggyurl.domain.model.User;
 import org.dfm.piggyurl.domain.port.ObtainCard;
@@ -60,6 +61,23 @@ public class UserAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for login when wrong user passed")
+  public void userShouldGetExceptionForLoginWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    Mockito.lenient().when(obtainUser.getUserLoginDetail("ashish.raj", "ashish@123"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestUser requestUser = new PiggyurlDomain(obtainUser);
+    Assertions.assertThrows(UserNotAuthorizedException.class, () ->
+        requestUser.getUserLoginDetail("ashish.raj", "ashish@123"));
+  }
+
+  @Test
   @DisplayName("user should create feature team group successfully from hard coded")
   public void userShouldCreateFeatureTeamGroupSuccessfullyFromHardCoded(
       @Mock ObtainUser obtainUser) {
@@ -79,6 +97,40 @@ public class UserAcceptanceTest {
     assertThat(groupInfo).isNotNull();
     assertThat(groupInfo).extracting("name", "type")
         .contains("FeatureTeam1", UserGroupType.FEATURE_TEAM);
+  }
+
+  @Test
+  @DisplayName("user should to get exception for login when wrong user passed")
+  public void userShouldGetExceptionForCreateGroupWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    Mockito.lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestUser requestUser = new PiggyurlDomain(obtainUser);
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createGroup("ashish.raj", mockGroup("FeatureTeam1", UserGroupType.FEATURE_TEAM).get()));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create group when user is not admin")
+  public void userShouldGetExceptionForCreateGroupWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    Mockito.lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUserForGroup(UserRightLevel.USER));
+    // When
+    RequestUser requestUser = new PiggyurlDomain(obtainUser);
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createGroup("ashish.raj", mockGroup("FeatureTeam1", UserGroupType.FEATURE_TEAM).get()));
   }
 
   @Test
@@ -139,6 +191,23 @@ public class UserAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for create user when wrong user passed")
+  public void userShouldGetExceptionForCreateUserWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    Mockito.lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestUser requestUser = new PiggyurlDomain(obtainUser);
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createUser("ashish.raj", mockUserForCreateUser(UserRightLevel.ADMIN).get()));
+  }
+
+  @Test
   @DisplayName("user should to get exception for create user when ports not available")
   public void userShouldGetExceptionForCreateUserWhenPortsNotAvailable(
       @Mock ObtainUser obtainUser) {
@@ -149,6 +218,23 @@ public class UserAcceptanceTest {
    */
     // When
     RequestUser requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createUser("ashish.raj", mockUserForCreateUser(UserRightLevel.ADMIN).get()));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create user when user is not admin")
+  public void userShouldGetExceptionForCreateUserWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    Mockito.lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUserForGroup(UserRightLevel.USER));
+    // When
+    RequestUser requestUser = new PiggyurlDomain(obtainUser);
     Assertions.assertThrows(CommonException.class, () ->
         requestUser.createUser("ashish.raj", mockUserForCreateUser(UserRightLevel.ADMIN).get()));
   }
