@@ -3,6 +3,8 @@ package org.dfm.piggyurl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -12,6 +14,7 @@ import org.dfm.piggyurl.domain.PiggyurlDomain;
 import org.dfm.piggyurl.domain.common.ShortUrlLevel;
 import org.dfm.piggyurl.domain.common.UserGroupType;
 import org.dfm.piggyurl.domain.common.UserRightLevel;
+import org.dfm.piggyurl.domain.exception.CommonException;
 import org.dfm.piggyurl.domain.model.Card;
 import org.dfm.piggyurl.domain.model.CardUpdate;
 import org.dfm.piggyurl.domain.model.Group;
@@ -19,12 +22,11 @@ import org.dfm.piggyurl.domain.model.User;
 import org.dfm.piggyurl.domain.port.ObtainCard;
 import org.dfm.piggyurl.domain.port.ObtainUser;
 import org.dfm.piggyurl.domain.port.RequestCard;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,6 +55,23 @@ public class CardAcceptanceTest {
     assertThat(cardInfo).isNotNull();
     assertThat(cardInfo).extracting("createdUserName", "approved")
         .contains("ashish.raj", "Y");
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create card when ports not available")
+  public void userShouldGetExceptionForCreateCardWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+
+    // When
+    RequestCard requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .createCard("ashish.raj", ORIGINAL_URL, ShortUrlLevel.NONE, "Description Test",
+            LocalDate.now().plusDays(30), 30));
   }
 
   @Test
@@ -147,6 +166,22 @@ public class CardAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for update card when ports not available")
+  public void userShouldGetExceptionForUpdateCardWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+
+    // When
+    RequestCard requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .updateCard("ashish.raj", mockCardForCreate(ShortUrlLevel.USER).get()));
+  }
+
+  @Test
   @DisplayName("user should able to delete card successfully from hard coded")
   public void userShouldAbleToDeleteCardSuccessfullyFromHardCoded(
       @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
@@ -160,8 +195,24 @@ public class CardAcceptanceTest {
     // When
     RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
     requestUser
-        .deleteCard("ashish.raj",1l);
+        .deleteCard("ashish.raj", 1l);
     verify(obtainCard).deleteCard(1l);
+  }
+
+  @Test
+  @DisplayName("user should to get exception for delete card when ports not available")
+  public void userShouldGetExceptionForDeleteCardWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+
+    // When
+    RequestCard requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .deleteCard("ashish.raj", 1l));
   }
 
   @Test
@@ -191,6 +242,22 @@ public class CardAcceptanceTest {
         .contains(tuple("ashish.raj", "Y"));
   }
 
+  @Test
+  @DisplayName("user should to get exception for approve card when ports not available")
+  public void userShouldGetExceptionForApproveCardWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+
+    // When
+    RequestCard requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .approveCard("ashish.raj"));
+  }
+
   private Optional<User> mockUser(final UserRightLevel rightLevel) {
     return Optional
         .of(User.builder().id(1l).userName("ashish.raj").password("ashish@123").firstName("Ashish")
@@ -199,8 +266,9 @@ public class CardAcceptanceTest {
                 LocalDate.now()).createdByUserId(1l).build());
   }
 
-  private List<CardUpdate> mockCardUpdateForApprove(){
-    return Arrays.asList(CardUpdate.builder().id(1l).cardId(1l).afterUpdate("AfterUpdate").beforeUpdate("BeforeUpdate").build());
+  private List<CardUpdate> mockCardUpdateForApprove() {
+    return Arrays.asList(CardUpdate.builder().id(1l).cardId(1l).afterUpdate("AfterUpdate")
+        .beforeUpdate("BeforeUpdate").build());
   }
 
   private Optional<User> mockUserForCreateUser(final UserRightLevel rightLevel) {

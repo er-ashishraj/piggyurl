@@ -70,7 +70,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public PiggyurlInfo getPiggyurls() {
     if (isNull(obtainPiggyurl)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     return PiggyurlInfo.builder().piggyurls(obtainPiggyurl.getAllPiggyurls()).build();
   }
@@ -78,7 +78,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public Piggyurl getPiggyurlByCode(String code) {
     if (isNull(obtainPiggyurl)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     Optional<Piggyurl> piggyurl = obtainPiggyurl.getPiggyurlByCode(code);
     return piggyurl.orElseThrow(() -> new PiggyurlNotFoundException(code));
@@ -87,7 +87,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public User getUserLoginDetail(final String userName, final String password) {
     if (isNull(obtainUser)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     Optional<User> getUserLoginDetail = obtainUser.getUserLoginDetail(userName, password);
     return getUserLoginDetail.orElseThrow(() -> new UserNotAuthorizedException(userName));
@@ -96,7 +96,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public Group createGroup(final String userNameOfCreator, final Group group) {
     if (isNull(obtainUser)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     //Get the creator user detail and he can create User only if he is an Admin
     Optional<User> creatorUserDetail = obtainUser.getUserByUserName(userNameOfCreator);
@@ -131,7 +131,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public User createUser(String userNameOfCreator, User user) {
     if (isNull(obtainUser)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     //Get the creator user detail and he can create User only if he is an Admin
     Optional<User> creatorUserDetail = obtainUser.getUserByUserName(userNameOfCreator);
@@ -167,7 +167,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
 
   private Group groupDetail(final String groupName, final UserGroupType groupType) {
     if (isNull(obtainUser)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     if (nonNull(groupName) && nonNull(groupType)) {
       Optional<Group> groupDetail = obtainUser.getGroupByNameAndType(groupName, groupType);
@@ -181,7 +181,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
       final ShortUrlLevel shortUrlLevel, final String description, LocalDate expirationDate,
       final int standardExpirationDurationInDays) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     //Get the creator user detail and he can create User only if he is an Admin
     Optional<User> creatorUserDetail = obtainUser.getUserByUserName(userNameOfCreator);
@@ -218,7 +218,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public Card updateCard(final String userNameOfUpdator, final Card cardDetail) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     //Get the creator user detail and he can create User only if he is an Admin
     Optional<User> updatorUserDetail = obtainUser.getUserByUserName(userNameOfUpdator);
@@ -236,7 +236,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public void deleteCard(final String userNameOfDeleter, final Long cardId) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     List<Card> cardOutputs = new ArrayList<>();
     //Get the deleter user detail and he can delete card only if he is an Admin
@@ -256,7 +256,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public List<Card> approveCard(final String approverUserName) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     List<Card> cardOutputs = new ArrayList<>();
     //Get the creator user detail and he can create User only if he is an Admin
