@@ -28,14 +28,14 @@ public class UserResource {
     return ResponseEntity.ok(requestUser.getUserLoginDetail(userName, password));
   }
 
-  @PostMapping("/user/groups/create")
+  @PostMapping("/user/groups")
   public ResponseEntity<Group> createUserGroup(@RequestParam final String userNameOfCreator,
       @RequestBody final Group groupToBeCreated) {
     return ResponseEntity.ok(requestUser.createGroup(userNameOfCreator, groupToBeCreated));
   }
 
-  @PostMapping("/user/create")
-  public ResponseEntity<User> createUserGroup(@RequestParam final String userNameOfCreator,
+  @PostMapping("/user")
+  public ResponseEntity<User> createUser(@RequestParam final String userNameOfCreator,
       @RequestBody final User userToBeCreated) {
     return ResponseEntity.ok(requestUser.createUser(userNameOfCreator, userToBeCreated));
   }

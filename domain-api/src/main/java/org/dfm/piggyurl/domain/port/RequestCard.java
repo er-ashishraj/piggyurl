@@ -15,6 +15,8 @@ public interface RequestCard {
 
   Card updateCard(final String userNameOfUpdator, final Card cardDetail);
 
+  void deleteCard(final String userNameOfDeleter, final Long cardId);
+
   List<Card> approveCard(final String approverUserName);
 
   List<CardUpdate> getCardUpdatesForApproval(final String userName);

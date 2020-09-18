@@ -30,7 +30,7 @@ public class CardResource {
   @Qualifier("requestCard")
   private RequestCard requestCard;
 
-  @PostMapping("/cards/create")
+  @PostMapping("/cards")
   public ResponseEntity<Card> createCard(@RequestParam final String userNameOfCreator,
       @RequestBody final CardRequest cardRequest) {
     return ResponseEntity.ok(requestCard.createCard(userNameOfCreator, cardRequest.getUrlOriginal(),
@@ -39,24 +39,24 @@ public class CardResource {
         Integer.valueOf(cardExpirationDurationInDays).intValue()));
   }
 
-  @PutMapping("/cards/update")
+  @PutMapping("/cards")
   public ResponseEntity<Card> updateCard(@RequestParam final String userNameOfCreator,
       @RequestBody final Card cardToBeUpdated) {
     return ResponseEntity.ok(requestCard.updateCard(userNameOfCreator, cardToBeUpdated));
   }
 
-  @PostMapping("/cards/approve")
+  @PostMapping("/cards/approves")
   public ResponseEntity<List<Card>> approveCard(@RequestParam final String approverUserName) {
     return ResponseEntity.ok(requestCard.approveCard(approverUserName));
   }
 
-  @GetMapping("/cards/CardUpdate")
+  @GetMapping("/cards/approvals")
   public ResponseEntity<List<CardUpdate>> getCardUpdatesForApproval(
       @RequestParam final String userName) {
     return ResponseEntity.ok(requestCard.getCardUpdatesForApproval(userName));
   }
 
-  @GetMapping("/Groups/{groupName}/cards/approved")
+  @GetMapping("/Groups/{groupName}/approvedCards")
   public ResponseEntity<List<Card>> getApprovedCardsForGroup(@PathVariable final String groupName,
       @RequestParam final UserGroupType groupType) {
     return ResponseEntity.ok(requestCard.getApprovedCardsForGroup(groupName, groupType));

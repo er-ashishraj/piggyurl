@@ -234,6 +234,26 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   }
 
   @Override
+  public void deleteCard(final String userNameOfDeleter, final Long cardId) {
+    if (isNull(obtainUser) || isNull(obtainCard)) {
+      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+    }
+    List<Card> cardOutputs = new ArrayList<>();
+    //Get the deleter user detail and he can delete card only if he is an Admin
+    Optional<User> approverUserDetail = obtainUser.getUserByUserName(userNameOfDeleter);
+    if (approverUserDetail.isPresent()) {
+      if (UserRightLevel.ADMIN.equals(approverUserDetail.get().getRightLevel())) {
+          obtainCard.deleteCard(cardId);
+      } else {
+        throw new CommonException(
+            userNameOfDeleter + " " + USER_NOT_ADMIN + " Hence can not delete");
+      }
+    } else {
+      throw new CommonException(userNameOfDeleter + " " + USER_NOT_FOUND);
+    }
+  }
+
+  @Override
   public List<Card> approveCard(final String approverUserName) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
       new UserNotAuthorizedException(PORTS_NOT_DEFINED);
