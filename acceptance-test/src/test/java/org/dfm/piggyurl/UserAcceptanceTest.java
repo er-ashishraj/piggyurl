@@ -5,12 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.util.Optional;
 import org.dfm.piggyurl.domain.PiggyurlDomain;
+import org.dfm.piggyurl.domain.common.ShortUrlLevel;
 import org.dfm.piggyurl.domain.common.UserGroupType;
 import org.dfm.piggyurl.domain.common.UserRightLevel;
+import org.dfm.piggyurl.domain.exception.CommonException;
 import org.dfm.piggyurl.domain.model.Group;
 import org.dfm.piggyurl.domain.model.User;
+import org.dfm.piggyurl.domain.port.ObtainCard;
 import org.dfm.piggyurl.domain.port.ObtainUser;
+import org.dfm.piggyurl.domain.port.RequestCard;
 import org.dfm.piggyurl.domain.port.RequestUser;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,6 +45,21 @@ public class UserAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for Login when ports not available")
+  public void userShouldGetExceptionForLoginWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    // When
+    RequestUser requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.getUserLoginDetail("ashish.raj", "ashish@123"));
+  }
+
+  @Test
   @DisplayName("user should create feature team group successfully from hard coded")
   public void userShouldCreateFeatureTeamGroupSuccessfullyFromHardCoded(
       @Mock ObtainUser obtainUser) {
@@ -59,6 +79,21 @@ public class UserAcceptanceTest {
     assertThat(groupInfo).isNotNull();
     assertThat(groupInfo).extracting("name", "type")
         .contains("FeatureTeam1", UserGroupType.FEATURE_TEAM);
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create group when ports not available")
+  public void userShouldGetExceptionForCreateGroupWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    // When
+    RequestUser requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createGroup("ashish.raj", mockGroup("FeatureTeam1", UserGroupType.FEATURE_TEAM).get()));
   }
 
   @Test
@@ -101,6 +136,21 @@ public class UserAcceptanceTest {
     assertThat(userInfo).isNotNull();
     assertThat(userInfo).extracting("userName", "password")
         .contains("ashish.raj", "ashish@123");
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create user when ports not available")
+  public void userShouldGetExceptionForCreateUserWhenPortsNotAvailable(
+      @Mock ObtainUser obtainUser) {
+  /*
+     RequestUser    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainUser     - right side port
+   */
+    // When
+    RequestUser requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () ->
+        requestUser.createUser("ashish.raj", mockUserForCreateUser(UserRightLevel.ADMIN).get()));
   }
 
   private Optional<User> mockUser(final UserRightLevel rightLevel) {
