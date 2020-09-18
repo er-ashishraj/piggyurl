@@ -293,7 +293,7 @@ public class PiggyurlDomain implements RequestPiggyurl, RequestUser, RequestCard
   @Override
   public List<CardUpdate> getCardUpdatesForApproval(final String userName) {
     if (isNull(obtainUser) || isNull(obtainCard)) {
-      new UserNotAuthorizedException(PORTS_NOT_DEFINED);
+      throw new CommonException(PORTS_NOT_DEFINED);
     }
     Optional<User> approverUserDetail = obtainUser.getUserByUserName(userName);
     if (approverUserDetail.isPresent()) {

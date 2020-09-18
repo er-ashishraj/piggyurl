@@ -19,6 +19,7 @@ Use following command to build the application
 
 ---
 mvn clean install
+
 ---
 
 ## Running the application
@@ -27,6 +28,7 @@ Use following command to run the application:
 ---
 cd bootstrap
 mvn spring-boot:run
+
 ---
 
 ## Running the tests
@@ -34,6 +36,7 @@ Use following command to run test cases:
 
 ---
 mvn clean test
+
 ---
 
 ## Contribution guidelines

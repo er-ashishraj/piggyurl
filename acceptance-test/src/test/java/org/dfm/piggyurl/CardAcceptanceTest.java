@@ -75,6 +75,43 @@ public class CardAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for create card when wrong user passed")
+  public void userShouldGetExceptionForCreateCardWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .createCard("ashish.raj", ORIGINAL_URL, ShortUrlLevel.NONE, "Description Test",
+            LocalDate.now().plusDays(30), 30));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for create card when user is not admin")
+  public void userShouldGetExceptionForCreateCardWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUser(UserRightLevel.USER));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .createCard("ashish.raj", ORIGINAL_URL, ShortUrlLevel.NONE, "Description Test",
+            LocalDate.now().plusDays(30), 30));
+  }
+
+
+  @Test
   @DisplayName("user should able to create card for user successfully from hard coded")
   public void userShouldAbleToCreateCardForUserSuccessfullyFromHardCoded(
       @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
@@ -166,6 +203,40 @@ public class CardAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for update card when wrong user passed")
+  public void userShouldGetExceptionForUpdateCardWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .updateCard("ashish.raj", mockCardForCreate(ShortUrlLevel.USER).get()));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for update card when user is not admin")
+  public void userShouldGetExceptionForUpdateCardWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUser(UserRightLevel.USER));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .updateCard("ashish.raj", mockCardForCreate(ShortUrlLevel.USER).get()));
+  }
+
+  @Test
   @DisplayName("user should to get exception for update card when ports not available")
   public void userShouldGetExceptionForUpdateCardWhenPortsNotAvailable(
       @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
@@ -197,6 +268,40 @@ public class CardAcceptanceTest {
     requestUser
         .deleteCard("ashish.raj", 1l);
     verify(obtainCard).deleteCard(1l);
+  }
+
+  @Test
+  @DisplayName("user should to get exception for delete card when wrong user passed")
+  public void userShouldGetExceptionForDeleteCardWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .deleteCard("ashish.raj", 1l));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for delete card when user is not admin")
+  public void userShouldGetExceptionForDeleteCardWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUser(UserRightLevel.USER));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .deleteCard("ashish.raj", 1l));
   }
 
   @Test
@@ -243,6 +348,40 @@ public class CardAcceptanceTest {
   }
 
   @Test
+  @DisplayName("user should to get exception for approve card when wrong user passed")
+  public void userShouldGetExceptionForApproveCardWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .approveCard("ashish.raj"));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for approve card when user is not admin")
+  public void userShouldGetExceptionForApproveCardWhenUserIsNotAdmin(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUser(UserRightLevel.USER));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .approveCard("ashish.raj"));
+  }
+
+  @Test
   @DisplayName("user should to get exception for approve card when ports not available")
   public void userShouldGetExceptionForApproveCardWhenPortsNotAvailable(
       @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
@@ -256,6 +395,107 @@ public class CardAcceptanceTest {
     RequestCard requestUser = new PiggyurlDomain();
     Assertions.assertThrows(CommonException.class, () -> requestUser
         .approveCard("ashish.raj"));
+  }
+
+  @Test
+  @DisplayName("user should able to get approved card for group successfully from hard coded")
+  public void userShouldAbleToGetApprovedCardForGroupSuccessfullyFromHardCoded(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when( obtainUser.getGroupByNameAndType("Tribe1", UserGroupType.TRIBE))
+        .thenReturn(mockGroup("Tribe1", UserGroupType.TRIBE));
+    lenient().when(obtainCard.getApprovedCardsByGroupId(1l))
+        .thenReturn(Arrays.asList(mockCardForCreate(ShortUrlLevel.USER).get()));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    List<Card> cards =requestUser
+        .getApprovedCardsForGroup("Tribe1", UserGroupType.TRIBE);
+    assertThat(cards).isNotNull();
+    assertThat(cards).extracting("createdUserName", "approved")
+        .contains(tuple("ashish.raj", "Y"));
+  }
+
+  @Test
+  @DisplayName("user should able to get card update for user successfully from hard coded")
+  public void userShouldAbleToGetCardUpdateForUserSuccessfullyFromHardCoded(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(mockUser(UserRightLevel.ADMIN));
+    lenient().when(obtainCard.getCardUpdateByUserName("ashish.raj"))
+        .thenReturn(mockCardUpdateForApprove());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    List<CardUpdate> cardUpdates =requestUser
+        .getCardUpdatesForApproval("ashish.raj");
+    assertThat(cardUpdates).isNotNull();
+    assertThat(cardUpdates).extracting("beforeUpdate", "afterUpdate")
+        .contains(tuple("BeforeUpdate", "AfterUpdate"));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for card update when wrong user passed")
+  public void userShouldGetExceptionForCardUpdateWhenWrongUserPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    lenient().when(obtainCard.getCardUpdateByUserName("ashish.raj"))
+        .thenReturn(mockCardUpdateForApprove());
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .getCardUpdatesForApproval("ashish.raj"));
+  }
+
+  @Test
+  @DisplayName("user should to get exception for card update when port is not defined")
+  public void userShouldGetExceptionForCardUpdateWhenPortIsNotDefined(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when(obtainUser.getUserByUserName("ashish.raj"))
+        .thenReturn(Optional.empty());
+    lenient().when(obtainCard.getCardUpdateByUserName("ashish.raj"))
+        .thenReturn(mockCardUpdateForApprove());
+    // When
+    RequestCard requestUser = new PiggyurlDomain();
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .getCardUpdatesForApproval("ashish.raj"));
+  }
+
+  @Test
+  @DisplayName("user should able for approved card when wrong group is passed")
+  public void userShouldGetExceptionForApprovedCardWhenWrongGroupIsPassed(
+      @Mock ObtainUser obtainUser, @Mock ObtainCard obtainCard) {
+  /*
+      RequestCard    - left side port
+      PiggyurlDomain - hexagon (domain)
+      ObtainCard     - right side port
+   */
+    lenient().when( obtainUser.getGroupByNameAndType("Tribe1", UserGroupType.TRIBE))
+        .thenReturn(Optional.empty());
+    lenient().when(obtainCard.getApprovedCardsByGroupId(1l))
+        .thenReturn(Arrays.asList(mockCardForCreate(ShortUrlLevel.USER).get()));
+    // When
+    RequestCard requestUser = new PiggyurlDomain(obtainUser, obtainCard);
+    Assertions.assertThrows(CommonException.class, () -> requestUser
+        .getApprovedCardsForGroup("Tribe1", UserGroupType.TRIBE));
   }
 
   private Optional<User> mockUser(final UserRightLevel rightLevel) {
