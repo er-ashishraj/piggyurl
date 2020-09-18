@@ -42,13 +42,18 @@ public class CardRepository implements ObtainCard {
   }
 
   @Override
-  public Optional<Card> getCardDetailById(Long cardId) {
+  public void deleteCard(final Long cardId) {
+    cardDao.deleteById(cardId);
+  }
+
+  @Override
+  public Optional<Card> getCardDetailById(final Long cardId) {
     Optional<CardEntity> createdCardDetail = cardDao.findById(cardId);
     return createdCardDetail.map(CardEntity::toCardModel);
   }
 
   @Override
-  public Optional<CardUpdate> createCardUpdate(CardUpdate cardUpdate) {
+  public Optional<CardUpdate> createCardUpdate(final CardUpdate cardUpdate) {
     CardUpdateMapper cardUpdateMapper = new CardUpdateMapper();
     CardUpdateEntity createdCardUpdateDetail = cardUpdateDao
         .save(cardUpdateMapper.mapCardUpdateToCardUpdateEntity(cardUpdate));

@@ -23,6 +23,9 @@ public interface ObtainCard {
   default void deleteCardUpdate(final Long cardUpdateId) {
   }
 
+  default void deleteCard(final Long cardId) {
+  }
+
   default List<CardUpdate> getCardUpdateByUserName(final String approverUserName) {
     return Collections.emptyList();
   }
